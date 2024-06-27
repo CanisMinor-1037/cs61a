@@ -62,7 +62,14 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
-    condition.
+    def f(n):
+        total, i = 0, 1
+        while i <= n:
+            if condition(n, i):
+                total = total + 1
+            i = i + 1
+        return total 
+    return f
 
 
 def multiple(a, b):
@@ -74,8 +81,12 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
-
-
+    mul = a * b
+    if a < b:
+        a, b = b, a
+    while b != 0:
+        a, b = b, a % b
+    return mul // a
 
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
@@ -104,4 +115,18 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
-
+    def g(n):
+        def h(x):
+            k, result = 0, x
+            while k < n:
+                # f1 -> f2 -> f3
+                if k % 3 == 0:
+                    result = f1(result)
+                elif k % 3 == 1:
+                    result = f2(result)
+                else:
+                    result = f3(result)
+                k = k + 1
+            return result
+        return h
+    return g
