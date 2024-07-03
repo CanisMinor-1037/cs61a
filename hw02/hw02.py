@@ -59,6 +59,11 @@ def accumulate(fuse, start, n, term):
     19
     """
     "*** YOUR CODE HERE ***"
+    total, index = start, 1
+    while index <= n:
+        total = fuse(total, term(index))
+        index = index + 1
+    return total
 
 
 def summation_using_accumulate(n, term):
@@ -73,7 +78,7 @@ def summation_using_accumulate(n, term):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(summation_using_accumulate)).body[0].body]
     ['Expr', 'Return']
     """
-    return ____
+    return accumulate(add, 0, n, term)
 
 
 def product_using_accumulate(n, term):
@@ -88,7 +93,7 @@ def product_using_accumulate(n, term):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(product_using_accumulate)).body[0].body]
     ['Expr', 'Return']
     """
-    return ____
+    return accumulate(mul, 1, n, term)
 
 
 def make_repeater(f, n):
@@ -105,7 +110,13 @@ def make_repeater(f, n):
     390625
     """
     "*** YOUR CODE HERE ***"
-
+    def h(x):
+        result, index = x, 0
+        while index < n:
+            result = f(result)
+            index = index + 1
+        return result
+    return h
 
 def digit_distance(n):
     """Determines the digit distance of n.
@@ -127,12 +138,17 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    else:
+        last_digit = n % 10
+        second_last_digit = (n // 10) % 10
+        return digit_distance(n // 10) + abs(second_last_digit - last_digit)
 
 
 def interleaved_sum(n, odd_func, even_func):
     """Compute the sum odd_func(1) + even_func(2) + odd_func(3) + ..., up
     to n.
-
     >>> identity = lambda x: x
     >>> square = lambda x: x * x
     >>> triple = lambda x: x * 3
@@ -151,6 +167,14 @@ def interleaved_sum(n, odd_func, even_func):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper(k, is_odd):
+        if k > n:
+            return 0
+        elif is_odd:
+            return odd_func(k) + helper(k + 1, False)
+        else:
+            return even_func(k) + helper(k + 1, True)
+    return helper(1, True)
 
 
 def next_larger_coin(coin):
@@ -205,4 +229,13 @@ def count_coins(total):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    def helper(n, m):
+        if n < 0:
+            return 0
+        elif n == 0:
+            return 1
+        elif m == 1:
+            return 1
+        else:
+            return helper(n, next_smaller_coin(m)) + helper(n - m, m)
+    return helper(total, 25)
