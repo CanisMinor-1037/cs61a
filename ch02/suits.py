@@ -29,3 +29,15 @@ suits[0:2] = ['heart', 'diamond']
 print(suits)
 
 print(suits0)
+
+nest = list(suits)
+nest[0] = suits
+suits.insert(2, 'Joker')
+print(nest)
+
+nest[0].pop(2)
+print(suits)
+
+print(suits is nest[0])
+print(suits is ['heart', 'diamond', 'spade', 'club'])
+print(suits == ['heart', 'diamond', 'spade', 'club'])
