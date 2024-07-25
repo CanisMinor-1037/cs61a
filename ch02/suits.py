@@ -6,8 +6,8 @@
 5: 'heart', 'diamond', 'spade', 'club'
 """
 # 
-chinese = ['coin', 'string', 'myriad']
-suits = chinese
+suits0 = ['coin', 'string', 'myriad']
+suits = suits0
 print(suits)
 
 # - myriad, - string
@@ -27,3 +27,5 @@ print(suits)
 # coin -> heart, cup -> diamond
 suits[0:2] = ['heart', 'diamond']
 print(suits)
+
+print(suits0)
