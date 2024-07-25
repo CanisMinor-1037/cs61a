@@ -18,3 +18,9 @@ print(withdraw(25))
 withdraw2 = make_withdraw(200)
 print(withdraw2(25))
 print(withdraw2(25))
+
+# 两个名称都引用同一个函数
+withdraw3 = make_withdraw(100)
+withdraw4 = withdraw3
+print(withdraw3(25))
+print(withdraw4(25))
