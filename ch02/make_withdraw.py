@@ -2,6 +2,7 @@ def make_withdraw(balance):
     def withdraw(amount):
         nonlocal balance
         if balance > amount:
+            # 更改了withdraw栈帧之外的变量balance
             balance = balance - amount
             return balance
         else:
